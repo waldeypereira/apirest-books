@@ -1,4 +1,4 @@
-package com.company.books.backend.model.dao;
+package com.company.books.backend.dao;
 
 import com.company.books.backend.model.Category;
 import org.springframework.data.repository.CrudRepository;
