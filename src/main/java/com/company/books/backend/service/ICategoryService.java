@@ -14,5 +14,7 @@ public interface ICategoryService {
 
     CategoryResponseRest update(Long id, Category category);
 
+    CategoryResponseRest delete(Long id);
+
 
 }

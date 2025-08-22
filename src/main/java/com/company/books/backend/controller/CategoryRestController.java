@@ -45,4 +45,10 @@ public class CategoryRestController {
         CategoryResponseRest response = service.update(id, category);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/categories/{id}")
+    public ResponseEntity<CategoryResponseRest> deleteCategory(@PathVariable Long id) {
+        CategoryResponseRest response = service.delete(id);
+        return ResponseEntity.ok(response);
+}
 }

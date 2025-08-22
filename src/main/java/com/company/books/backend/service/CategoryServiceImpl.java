@@ -120,4 +120,28 @@ public class CategoryServiceImpl implements ICategoryService {
         return response;
     }
 
+    @Override
+    @Transactional
+    public CategoryResponseRest delete(Long id) {
+        log.info("Deleting category with ID: {}", id);
+
+        CategoryResponseRest response = new CategoryResponseRest();
+
+        try {
+            if (categoryRepository.existsById(id)) {
+                categoryRepository.deleteById(id);
+                response.addMetadata("OK", "00", "Category deleted successfully");
+                log.info("Category with ID: {} deleted successfully", id);
+            } else {
+                response.addMetadata("ERROR", "-1", "Category not found");
+                log.warn("Category with ID: {} not found for deletion", id);
+            }
+        } catch (Exception e) {
+            log.error("Error deleting category", e);
+            response.addMetadata("ERROR", "-1", "Error deleting category");
+        }
+
+        return response;
+    }
+
 }
