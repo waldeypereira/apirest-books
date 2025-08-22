@@ -6,13 +6,13 @@ import java.util.List;
 
 public class CategoryResponse {
 
-    private List<Category> categoria;
+    private List<Category> category;
 
-    public List<Category> getCategoria() {
-        return categoria;
+    public List<Category> getCategory() {
+        return category;
     }
 
-    public void setCategoria(List<Category> categoria) {
-        this.categoria = categoria;
+    public void setCategory(List<Category> category) {
+        this.category = category;
     }
 }

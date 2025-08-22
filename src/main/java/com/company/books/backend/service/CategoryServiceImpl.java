@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,7 +32,7 @@ public class CategoryServiceImpl implements ICategoryService {
         CategoryResponseRest response = new CategoryResponseRest();
         try {
             List<Category> categories = (List<Category>) categoryDao.findAll();
-            response.getCategoryResponse().setCategoria(categories);
+            response.getCategoryResponse().setCategory(categories);
             response.addMetadata("OK", "00", "Consulta exitosa");
         } catch (Exception e) {
             response.addMetadata("ERROR", "-1", "Error al consultar categorias");
@@ -40,4 +41,22 @@ public class CategoryServiceImpl implements ICategoryService {
 
         return response;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public CategoryResponseRest findById(Long id) {
+        log.info("Consulta categoria por ID: {}", id);
+
+        CategoryResponseRest response = new CategoryResponseRest();
+        categoryDao.findById(id).ifPresentOrElse(
+                category -> {
+                    response.getCategoryResponse().setCategory(new ArrayList<>(List.of(category)));
+                    response.addMetadata("OK", "00", "Consulta exitosa");
+                },
+                () -> response.addMetadata("ERROR", "-1", "Categoria no encontrada")
+        );
+
+        return response;
+    }
+
 }
