@@ -4,7 +4,7 @@ import com.company.books.backend.response.CategoryResponseRest;
 
 public interface ICategoryService {
 
-    public CategoryResponseRest findAll();
-    public CategoryResponseRest findById(Long id);
+    CategoryResponseRest findAll();
 
+    CategoryResponseRest findById(Long id);
 }

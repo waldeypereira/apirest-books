@@ -1,27 +1,32 @@
 package com.company.books.backend.response;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-public class ResponseRest<T> {
+public class ResponseRest {
 
-    private final List<Metadata> metadata = new ArrayList<>();
-    private T data;
+    private final List<HashMap<String, String>> metadata = new ArrayList<>();
 
-    // Getters e Setters
-    public List<Metadata> getMetadata() {
+    public List<HashMap<String, String>> getMetadata() {
         return metadata;
     }
 
-    public void addMetadata(String tipo, String codigo, String date) {
-        this.metadata.add(new Metadata(tipo, codigo, date));
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
+    /**
+     * Adds a new metadata entry with automatic timestamp.
+     *
+     * @param type    Type of the response ("OK", "ERROR", etc.)
+     * @param code    Custom code ("00", "-1", etc.)
+     * @param message Message describing the response
+     */
+    public void addMetadata(String type, String code, String message) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("type", type);
+        map.put("code", code);
+        map.put("message", message);
+        map.put("timestamp", LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));
+        this.metadata.add(map);
     }
 }

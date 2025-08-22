@@ -2,7 +2,11 @@ package com.company.books.backend.response;
 
 public class CategoryResponseRest extends ResponseRest {
 
-    private CategoryResponse categoryResponse = new CategoryResponse();
+    private CategoryResponse categoryResponse;
+
+    public CategoryResponseRest() {
+        this.categoryResponse = new CategoryResponse(); // always initialized
+    }
 
     public CategoryResponse getCategoryResponse() {
         return categoryResponse;
