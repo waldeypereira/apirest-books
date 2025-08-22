@@ -25,7 +25,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public CategoryResponseRest findall() {
+    public CategoryResponseRest findAll() {
         log.info("Iniciando consulta de categorias...");
 
         CategoryResponseRest response = new CategoryResponseRest();

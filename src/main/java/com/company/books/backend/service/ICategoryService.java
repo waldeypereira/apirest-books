@@ -4,6 +4,6 @@ import com.company.books.backend.response.CategoryResponseRest;
 
 public interface ICategoryService {
 
-    public CategoryResponseRest findall();
+    public CategoryResponseRest findAll();
 
 }
