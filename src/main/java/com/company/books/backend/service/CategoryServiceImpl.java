@@ -1,6 +1,6 @@
 package com.company.books.backend.service;
 
-import com.company.books.backend.dao.ICategoryDao;
+import com.company.books.backend.repository.ICategoryRepository;
 import com.company.books.backend.model.Category;
 import com.company.books.backend.response.CategoryResponseRest;
 import org.slf4j.Logger;
@@ -16,10 +16,10 @@ public class CategoryServiceImpl implements ICategoryService {
 
     private static final Logger log = LoggerFactory.getLogger(CategoryServiceImpl.class);
 
-    private final ICategoryDao categoryDao;
+    private final ICategoryRepository categoryDao;
 
     @Autowired
-    public CategoryServiceImpl(ICategoryDao categoryDao) {
+    public CategoryServiceImpl(ICategoryRepository categoryDao) {
         this.categoryDao = categoryDao;
     }
 
