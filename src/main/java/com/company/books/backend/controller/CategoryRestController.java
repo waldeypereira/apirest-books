@@ -1,5 +1,6 @@
 package com.company.books.backend.controller;
 
+import com.company.books.backend.model.Category;
 import com.company.books.backend.response.CategoryResponseRest;
 import com.company.books.backend.service.ICategoryService;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,18 @@ public class CategoryRestController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
 
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/categories")
+    public ResponseEntity<CategoryResponseRest> createCategory(@RequestBody Category category) {
+        CategoryResponseRest response = service.create(category);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PutMapping("/categories/{id}")
+    public ResponseEntity<CategoryResponseRest> updateCategory(@PathVariable Long id, @RequestBody Category category) {
+        CategoryResponseRest response = service.update(id, category);
         return ResponseEntity.ok(response);
     }
 }

@@ -2,6 +2,7 @@ package com.company.books.backend.service;
 
 import com.company.books.backend.repository.ICategoryRepository;
 import com.company.books.backend.model.Category;
+import com.company.books.backend.response.CategoryResponse;
 import com.company.books.backend.response.CategoryResponseRest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,4 +62,62 @@ public class CategoryServiceImpl implements ICategoryService {
         }
         return response;
     }
+
+    @Override
+    @Transactional
+    public CategoryResponseRest create(Category category) {
+        log.info("Creating new category");
+
+        CategoryResponseRest response = new CategoryResponseRest();
+        List<Category> list = new ArrayList<>();
+
+        try {
+            Category savedCategory = categoryRepository.save(category);
+            list.add(savedCategory);
+
+            response.getCategoryResponse().setCategories(list);
+            response.addMetadata("OK", "00", "Category created successfully");
+
+            log.info("Category created successfully with ID: {}", savedCategory.getId());
+        } catch (Exception e) {
+            log.error("Error creating category", e);
+            response.addMetadata("ERROR", "-1", "Error creating category");
+        }
+
+        return response;
+    }
+
+    @Override
+    @Transactional
+    public CategoryResponseRest update(Long id, Category category) {
+        log.info("Updating category with ID: {}", id);
+
+        CategoryResponseRest response = new CategoryResponseRest();
+        List<Category> list = new ArrayList<>();
+
+        try {
+            Category existingCategory = categoryRepository.findById(id).orElse(null);
+            if (existingCategory != null) {
+                existingCategory.setName(category.getName());
+                existingCategory.setDescription(category.getDescription());
+
+                Category updatedCategory = categoryRepository.save(existingCategory);
+                list.add(updatedCategory);
+
+                response.getCategoryResponse().setCategories(list);
+                response.addMetadata("OK", "00", "Category updated successfully");
+
+                log.info("Category updated successfully with ID: {}", updatedCategory.getId());
+            } else {
+                response.addMetadata("ERROR", "-1", "Category not found");
+                log.warn("Category with ID: {} not found for update", id);
+            }
+        } catch (Exception e) {
+            log.error("Error updating category", e);
+            response.addMetadata("ERROR", "-1", "Error updating category");
+        }
+
+        return response;
+    }
+
 }
