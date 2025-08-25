@@ -5,6 +5,7 @@ import com.company.books.backend.model.Book;
 import java.util.List;
 
 public class BookResponse {
+
     private List<Book> books;
 
     public List<Book> getBooks() {
