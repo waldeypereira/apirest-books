@@ -1,9 +1,7 @@
 package com.company.books.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -20,6 +18,11 @@ public class Book implements Serializable {
     private Long id;
     private String title;
     private String author;
+
+    // Relación muchos a uno con Category
+    @ManyToOne(fetch = FetchType.LAZY)
+    // Evita problemas de serialización con Hibernate
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Category category;
 
     public Long getId() {
